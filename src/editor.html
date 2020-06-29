@@ -23,43 +23,11 @@
     </filemanager>
 
     <contentview>
-        <textarea class="fullsize" id="input_src" placeholder="Schreibet euren erquickenden Code">
+        <textarea class="fullsize" id="input_src" placeholder="Schreibet euren erquickenden Code" spellcheck="false">
 es gelüstet mich nach Bibliothekar als ehrenwerter Bibliothekar
 es gelüstet mich nach Zeiteisen als altehrwürdiges Zeiteisen
 es gelüstet mich nach Bote als edler Bote
 es gelüstet mich nach Barde als werter Barde
-
-Gevatter Buch:
-    entfleuchet aus der Bibliothek():
-        $$ await __rt.file_delete(this);
-
-Gevatter Bote:
-    mache kund(t):
-        $$ await __rt.console_println(t);
-
-Gevatter Barde:
-    lasset erschallen einen Ton in ungekannter Höhe():
-        $$ await __rt.sound(10000);
-
-Gevatter Bibliothekar:
-    findet das Buch(buch):
-        $$ await __rt.file_get(buch);
-
-    leget an das Schriftstück(stück):
-        $$ await __rt.file_create(stück);
-
-    prüfet die Existenz des Buches(buch):
-        $$ return await __rt.file_exists(buch);
-
-Gevatter Zeiteisen:
-    sagt an die Uhr():
-        $$ return await __rt.get_time();
-
-lauschet dem edlen anwender():
-    $$ return await __rt.console_readln();
-
-verfallet in Schlummer(d):
-    $$ await __rt.delaySeconds(d);
         
 es geschah eine eselei():
     Potz Wetter! "Es geschah eine bös Eselei!"  
@@ -80,9 +48,10 @@ gott zum gruße():
     werte Datei, entfleuchet aus der Bibliothek
     
     tänzelt im kreise solange x die wahrheit spreche:
+        edler Bote, mache Kund "Erwarte Befehl"
         lauschet dem edlen anwender und schreibet in z
         sei gegeben die Eventualität, dass z entspreche "test_math":
-            rechnet mit x, addieret 5, subtrahieret 3 und multiplizieret mit 9
+            rechnet mit y, addieret 5, subtrahieret 3 und multiplizieret mit 9
         ansonsten prüfet, ob z entspreche "test_crash":
             es geschah eine eselei
         ansonsten prüfet, ob z entspreche "test_beep":
@@ -103,7 +72,7 @@ gott zum gruße():
     </contentview>
 
     <console>
-        <textarea class="fullsize" id="output_console" placeholder="Konsole" disabled ></textarea>
+        <textarea class="fullsize" id="output_console" placeholder="Konsole" disabled spellcheck="false"></textarea>
     </console>
     
     <consoleinput>
@@ -115,6 +84,17 @@ gott zum gruße():
 <script src="lang/parser.js"></script>
 <script src="lang/runtime.js"></script>
 <script>
+
+    __rt.loadStdLib();
+    console.log("STDLIB loaded");
+
+    var console_input = document.getElementById("input_console");
+    console_input.onkeydown = function(e) {
+        if (e.key == "Enter") {
+            __rt.on_read_line(console_input.value);
+            console_input.value = "";
+        }
+    }
 
     function runButtonClicked() {
         var code = document.getElementById('input_src').value;

@@ -1,0 +1,33 @@
+Gevatter Buch:
+    entfleuchet aus der Bibliothek():
+        $$ await __rt.file_delete(this);
+
+Gevatter Bote:
+    mache kund(t):
+        $$ await __rt.console_println(t);
+
+Gevatter Barde:
+    lasset erschallen einen Ton in ungekannter Höhe():
+        $$ await __rt.sound(10000);
+
+Gevatter Bibliothekar:
+    findet das Buch(path):
+        $$ let b = new buch();
+        $$ b.path = path;
+        $$ return b;
+
+    leget an das Schriftstück(stück):
+        $$ await __rt.file_create(stück);
+
+    prüfet die Existenz des Buches(buch):
+        $$ return await __rt.file_exists(buch);
+
+Gevatter Zeiteisen:
+    sagt an die Uhr():
+        $$ return await __rt.get_time();
+
+lauschet dem edlen anwender():
+    $$ return await __rt.console_readln();
+
+verfallet in Schlummer(d):
+    $$ await __rt.delaySeconds(d);

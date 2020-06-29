@@ -124,6 +124,8 @@
             js.appendln('}');
         } else if (instruction.startsWith("schlage alles bemühen fehl")){
             js.appendln('else{');
+            for (let child of children)
+                this.handleBlock(child, js, name);
             js.appendln('}');
         } else if (instruction.startsWith("rechnet mit")) {
             let varname = instruction.after("rechnet mit");
