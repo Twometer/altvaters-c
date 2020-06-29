@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wertes Fräulein Ide</title>
     <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
     <link href="editor.css" rel="stylesheet">
 </head>
 <body>
     <toolbar>
-        <button>Speichert</button>
         <button>Neues Schriftstück</button>
+        <button>Speichert</button>
         <button onclick="runButtonClicked();">Führet aus</button>
-        <a href="index.html">
-            <button>Kehret Zurück</button>
-        </a>
+        <button onclick="backToMain()">Kehret Zurück</button>
+        <button onclick="switchFont()">Schriftart</button>
     </toolbar>
 
     <filemanager>
@@ -22,16 +23,46 @@
     </filemanager>
 
     <contentview>
-        <textarea class="fullsize" id="input_src" placeholder="Source Code">
-es gelüstet mich nach der Bibliothek
-es gelüstet mich nach dem Zeiteisen
-es gelüstet mich nach dem Boten
-es gelüstet mich nach dem Barden
+        <textarea class="fullsize" id="input_src" placeholder="Schreibet euren erquickenden Code">
+es gelüstet mich nach Bibliothekar als ehrenwerter Bibliothekar
+es gelüstet mich nach Zeiteisen als altehrwürdiges Zeiteisen
+es gelüstet mich nach Bote als edler Bote
+es gelüstet mich nach Barde als werter Barde
+
+Gevatter Buch:
+    entfleuchet aus der Bibliothek():
+        $$ await __rt.file_delete(this);
 
 Gevatter Bote:
     mache kund(t):
-        __native__ console.log(t);
+        $$ await __rt.console_println(t);
 
+Gevatter Barde:
+    lasset erschallen einen Ton in ungekannter Höhe():
+        $$ await __rt.sound(10000);
+
+Gevatter Bibliothekar:
+    findet das Buch(buch):
+        $$ await __rt.file_get(buch);
+
+    leget an das Schriftstück(stück):
+        $$ await __rt.file_create(stück);
+
+    prüfet die Existenz des Buches(buch):
+        $$ return await __rt.file_exists(buch);
+
+Gevatter Zeiteisen:
+    sagt an die Uhr():
+        $$ return await __rt.get_time();
+
+lauschet dem edlen anwender():
+    $$ return await __rt.console_readln();
+
+verfallet in Schlummer(d):
+    $$ await __rt.delaySeconds(d);
+        
+es geschah eine eselei():
+    Potz Wetter! "Es geschah eine bös Eselei!"  
 
 gott zum gruße():
     möge x die wahrheit sprechen
@@ -39,50 +70,44 @@ gott zum gruße():
     
     möge existiert die unwahrheit sprechen
     
-    ehrenwerter Bibliothekar, prüfet ihr die Existenz des Buches test.txt und schreibet in existiert
+    ehrenwerter Bibliothekar, prüfet ihr die Existenz des Buches "test.txt" und schreibet in existiert
     sei gegeben die Eventualität, dass existiert die Unwahrheit spreche:
-        ehrenwerter Bibliothekar, leget an das Schriftstück test.txt
+        ehrenwerter Bibliothekar, leget an das Schriftstück "test.txt"
 
     möge werte Datei als Buch bekannt werden
 
-    ehrenwerter Bibliothekar, findet das Buch test.txt und schreibet in werte Datei	
+    ehrenwerter Bibliothekar, findet das Buch "test.txt" und schreibet in werte Datei	
     werte Datei, entfleuchet aus der Bibliothek
     
-    tänzelt im kreise solange x die wahrheit spricht:
-    ::sprungmarke
-    lauschet dem edlen anwender und schreibet in z
-    sei gegeben die Eventualität, dass z entspreche "test_math":
-        addieret 5 zu x, subtrahieret 3 und multiplizieret mit 9
-    ansonsten prüfet, ob z entspreche "test_crash":
-        es geschah eine eselei
-    ansonsten prüfet, ob z entspreche "test_beep":
-        werter Barde, lasset erschallen einen Ton in ungekannter höhe
-    ansonsten prüfet, ob z entspreche "test_sleep":
-        verfallet in schlummer für 1 Sekündlein
-        ehrenwerter Bote, mache kund "Testnachricht!"
-    ansonsten prüfet, ob z entspreche "test_goto":
-        hüpfet zur ehrenwerten sprungmarke
-    ansonsten prüfet, ob z entspreche "exit_hard":
-        weichet zurück
-    ansonsten prüfet, ob z entspreche "time":
-        ehrenwertes Zeiteisen, sag an die Uhr und schreibe in t
-        edler Bote, mache kund den Wert von t
-    ansonsten prüfet, ob z entspreche "exit":
-        lasset x die Unwahrheit sprechen
-    so schlage alles bemühen fehl:
-        edler Bote, mache kund "Dieser Befehl ist nicht in meinem Wortschatze"
-        
-es geschah eine eselei():
-    Potz Wetter! "Es geschah eine bös Eselei!"
+    tänzelt im kreise solange x die wahrheit spreche:
+        lauschet dem edlen anwender und schreibet in z
+        sei gegeben die Eventualität, dass z entspreche "test_math":
+            rechnet mit x, addieret 5, subtrahieret 3 und multiplizieret mit 9
+        ansonsten prüfet, ob z entspreche "test_crash":
+            es geschah eine eselei
+        ansonsten prüfet, ob z entspreche "test_beep":
+            werter Barde, lasset erschallen einen Ton in ungekannter höhe
+        ansonsten prüfet, ob z entspreche "test_sleep":
+            verfallet in schlummer für 1 Sekündlein
+            edler Bote, mache kund "Testnachricht!"
+        ansonsten prüfet, ob z entspreche "exit_hard":
+            weichet zurück
+        ansonsten prüfet, ob z entspreche "time":
+            altehrwürdiges Zeiteisen, sagt an die Uhr und schreibet in t
+            edler Bote, mache kund den Wert von t
+        ansonsten prüfet, ob z entspreche "exit":
+            lasset x die Unwahrheit sprechen
+        so schlage alles bemühen fehl:
+            edler Bote, mache kund "Dieser Befehl ist nicht in meinem Wortschatze"
         </textarea>
     </contentview>
 
     <console>
-        <textarea class="fullsize" placeholder="Console" disabled ></textarea>
+        <textarea class="fullsize" id="output_console" placeholder="Konsole" disabled ></textarea>
     </console>
     
     <consoleinput>
-        <input type="text" placeholder="$ ">
+       <span>$</span> <input id="input_console" type="text" placeholder="Die Konsole erwartet Eure Befehle">
     </consoleinput>
 
 </body>
@@ -92,8 +117,53 @@ es geschah eine eselei():
 <script>
 
     function runButtonClicked() {
-        var code = document.getElementById('input_src').textContent;
+        var code = document.getElementById('input_src').value;
         __rt.execute(code);
+    }
+
+    function backToMain() {
+        window.location = "index.html";
+    }
+
+    let curFont = 1;
+    function switchFont() {
+        switch (curFont) {
+            case 0:
+                changeFont(document.getElementsByTagName("body")[0], "UnifrakturMaguntia");
+                break;
+            case 1:
+                changeFont(document.getElementsByTagName("body")[0], "Courier New");
+                break;
+            case 2:
+                changeFont(document.getElementsByTagName("body")[0], "Patrick Hand");
+                break;
+            case 3:
+                changeFont(document.getElementsByTagName("body")[0], "Parisienne");
+                break;
+        }
+        curFont++;
+        curFont %= 4;
+    }
+
+    function changeFont(element, fam){
+        element.style.fontFamily = fam;
+    
+        for(var i=0; i < element.children.length; i++){
+            changeFont(element.children[i], fam);
+        }
+    }
+    
+    var textareas = document.getElementsByTagName('textarea');
+    var count = textareas.length;
+    for(var i=0;i<count;i++){
+        textareas[i].onkeydown = function(e){
+            if(e.keyCode==9 || e.which==9){
+                e.preventDefault();
+                var s = this.selectionStart;
+                this.value = this.value.substring(0,this.selectionStart) + "    " + this.value.substring(this.selectionEnd);
+                this.selectionEnd = s+4; 
+            }
+        }
     }
 
 </script>

@@ -1,6 +1,6 @@
 (function() {
 
-    const filler_words = ["nun", "so", "es", "den", "dem", "des", "der", "die", "das", "zu", "ihr"];
+    const filler_words = ["nun", "so", "ihr"];
 
     function AltvaterParser() {
 
@@ -17,6 +17,7 @@
         var blocks = [];
         readBlocks(lines, blocks, 0, 0);
         console.log(blocks);
+        return blocks;
     }
     
     function cleanLine(line) {
@@ -31,23 +32,27 @@
         return v.join(' ').trim();
     }
 
-    function readBlocks(lines, blocks, offset, baseIndent) {
+    function readBlocks(lines, blocks, offset, baseIndent, parent) {
         for (var i = offset; i < lines.length; i++) {
             var curLine = lines[i];
             var nextLine = lines[i + 1];
             if (i == lines.length - 1) {
-               blocks.push({instr: curLine.text, blocks:[]});
+               blocks.push({instr: curLine.text, blocks:[], parent:parent});
             } else {
                 if (curLine.indent < baseIndent)
                     return i - offset;
 
                 if (nextLine.indent > curLine.indent){
                     var subblocks = [];
-                    var read = readBlocks(lines, subblocks, i + 1, nextLine.indent);
+                    var new_parent = {};
+                    var read = readBlocks(lines, subblocks, i + 1, nextLine.indent, new_parent);
                     i += read;
-                    blocks.push({instr: curLine.text, blocks: subblocks})
+                    new_parent.instr = curLine.text;
+                    new_parent.blocks = subblocks;
+                    new_parent.parent = parent;
+                    blocks.push(new_parent);
                 } else {
-                    blocks.push({instr: curLine.text, blocks:[]})
+                    blocks.push({instr: curLine.text, blocks:[], parent:parent})
                 }
             }
         }
@@ -57,7 +62,7 @@
     function processLine(line) {
         if (line.trim().length == 0)
             return null;
-        line = line.replace('\t', ' ');
+        line = line.replaceAll('\t', ' ');
 
         var indent = 0;
         for (var i = 0; i < line.length; i++)
