@@ -24,7 +24,11 @@
     }
 
     AltvaterRuntime.prototype.file_delete = async (file) => {
-
+        try {
+            fs.unlinkSync(__dirname + '\\..\\work\\' + file.path);
+        } catch(e) {
+            
+        }
     };
 
     
@@ -37,15 +41,15 @@
     };
 
     AltvaterRuntime.prototype.file_create = async (path) => {
-
+        fs.writeFileSync(__dirname + '\\..\\work\\' + path, 'Der ehrenwerte Bibliothekar hat euer Durchlaucht dieses Büchlein angelegt.');
     };
 
     AltvaterRuntime.prototype.file_exists = async (path) => {
-
+        return fs.existsSync(__dirname + '\\..\\work\\' + path);
     };
 
     AltvaterRuntime.prototype.get_time = async () => {
-
+        return new Date().toString();
     };
 
     AltvaterRuntime.prototype.console_readln = () => {

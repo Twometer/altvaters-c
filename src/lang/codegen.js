@@ -160,6 +160,11 @@
                 return;
             }
 
+            if (instruction.startsWith("#")){  // comments
+                js.appendln("//" + instruction.after("#"));
+                return;
+            }
+
             var calledObjPrefix = "";
             if (instruction.includes(',')){
                 var calledObj = instruction.before(',').sanitize();

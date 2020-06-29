@@ -1,3 +1,6 @@
+# STDLIB: 
+# Provides standard native functions to interact with runtime
+
 Gevatter Buch:
     entfleuchet aus der Bibliothek():
         $$ await __rt.file_delete(this);
@@ -31,3 +34,5 @@ lauschet dem edlen anwender():
 
 verfallet in Schlummer(d):
     $$ await __rt.delaySeconds(d);
+
+# stdlib end
