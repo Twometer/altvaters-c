@@ -48,7 +48,8 @@
         var children = block.blocks;
         block.defined_objects = [];
 
-        if (instruction.startsWith("es gelüstet mich nach")) {     // Import
+        if (instruction.startsWith("es gelüstet mich nach")) {     // global object def
+            instruction.assertContainsToken(block,  "als");
             if (parentname != null)
                 codegen_error(block, "Welch Strolch übergibt mir solche Textstücke! Es vermag dir nur im globalen Scope nach globalen Objekten zu gelüsten!");
             var required_name = instruction.after("gelüstet mich nach").before("als");
@@ -57,6 +58,8 @@
             js.appendln("window." + alias.sanitize() + " = new " + required_name.sanitize() + "();");
         }
         else if (instruction.endsWith("):")) {    // Method def
+            instruction.assertContainsToken(block, "(");
+            instruction.assertContainsToken(block, "):");
             let name_unsanitized = instruction.before('(');
             let name = name_unsanitized.sanitize();
             let args = instruction.after('(').before(')');
@@ -74,60 +77,81 @@
         }
         else if (instruction.startsWith('gevatter')) {  // Class def
             var classname = instruction.after("gevatter").before(":").sanitize();
+            if (classname.length == 0)
+                codegen_error(block, "empty classname not allowed");
+
             js.appendln("function " + classname + '() {} ');
             for (let child of children)
                 this.handleBlock(child, js, classname);
         }
-        else if (instruction.startsWith('möge') || instruction.startsWith("lasset")) {
+        else if (instruction.startsWith('möge') || instruction.startsWith("lasset")) {  // var def and assignment
             let prefix = "lasset";
-            if (instruction.startsWith('möge'))
-                {
-                    js.append('var ');
-                    prefix = "möge";
-                }
+            if (instruction.startsWith('möge')) {
+                js.append('var ');
+                prefix = "möge";
+            }
             if (instruction.endsWith('bekannt werden')) {
+                instruction.assertContainsToken(block, "als");
                 let name = instruction.after(prefix).before("als").sanitize();
                 let type = instruction.after("als").before("bekannt");
                 js.appendln(name + "; // Type: " + type); 
                 block.parent.defined_objects.push({name:type, alias:name});
                 // generics
             } else if (instruction.endsWith('sprechen')) {
+                instruction.assertContainsToken(block, ' ');
                 let name = instruction.after(prefix).before(" ").sanitize();
-                js.appendln(name + " = " +( instruction.includes('unwahrheit') ? 'false' : 'true') + '; // Type: bool');
+                var val = "";
+                if (instruction.includes("unwahrheit"))
+                    val = "false";
+                else if (instruction.includes("wahrheit"))
+                    val = "true";
+                else
+                    codegen_error(block, "invalid boolean value");
+
+                js.appendln(name + " = " + val + '; // Type: bool');
                 // bool
-            } 
+            } else {
+                codegen_error(block, "invalid definition")
+            }
         } 
-        else if (instruction == 'weichet zurück') {
+        else if (instruction == 'weichet zurück') { // return
             js.appendln('return;');
         }
-        else if (instruction.startsWith("potz wetter!")) {
+        else if (instruction.startsWith("potz wetter!")) {  // error
+            if (instruction.after('"').after('"').length != 0)
+                codegen_error("Unexpected token after end of command");
+
             js.appendln('throw new Error("' + instruction.after('"').before('"') + '");');
         }
-        else if (instruction.startsWith("tänzelt"))
+        else if (instruction.startsWith("tänzelt")) // while
         {
+            instruction.assertContainsToken(block, "im kreise");
+            instruction.assertContainsToken(block, "solange");
             var condition = parse_condition(instruction.after('solange').before(':'));
             js.appendln('while(' + condition + ') {');
             for (let child of children)
                 this.handleBlock(child, js);
             js.appendln('}');
-        } else if (instruction.startsWith("sei gegeben")) {
+        } else if (instruction.startsWith("sei gegeben die eventualität")) { // if
+            instruction.assertContainsToken(block, ", dass");
             var condition = instruction.after(', dass').before(':');
             js.appendln('if(' + parse_condition(condition) + ') {');
             for (let child of children)
                 this.handleBlock(child, js, name);
             js.appendln('}');
-        } else if (instruction.startsWith("ansonsten prüfet")){
+        } else if (instruction.startsWith("ansonsten prüfet")){ // else if
+            instruction.assertContainsToken(block, ", ob");
             var condition = instruction.after(', ob').before(':');
             js.appendln('else if (' + parse_condition(condition) + ') {')
             for (let child of children)
                 this.handleBlock(child, js, name);
             js.appendln('}');
-        } else if (instruction.startsWith("schlage alles bemühen fehl")){
+        } else if (instruction.startsWith("schlage alles bemühen fehl")){ // else
             js.appendln('else{');
             for (let child of children)
                 this.handleBlock(child, js, name);
             js.appendln('}');
-        } else if (instruction.startsWith("rechnet mit")) {
+        } else if (instruction.startsWith("rechnet mit")) { // mafs
             let varname = instruction.after("rechnet mit");
             let opsep =  varname.includes(',') ? ',' : 'und';
             varname = varname.before(opsep);
@@ -165,6 +189,7 @@
                 return;
             }
 
+            // method calls //
             var calledObjPrefix = "";
             if (instruction.includes(',')){
                 var calledObj = instruction.before(',').sanitize();
@@ -174,7 +199,7 @@
 
             let dstVar = null;
             let method = instruction;
-            if (instruction.includes("und schreibet")) {
+            if (instruction.includes("und schreibet in")) {
                 dstVar = instruction.after("und schreibet in").sanitize();
                 method = instruction.before("und schreibet in");
             }
@@ -210,14 +235,10 @@
             let obj_def = isGlobal  ? null : resolveGlobalObject(calledObjPrefix);
 
             if (!isGlobal && obj_def == null) {
-                codegen_error(block, "cannot resolve object " + calledObjPrefix);
+                codegen_error(block, "undefined object " + calledObjPrefix);
             }
 
             let obj_name = isGlobal  ? "" : obj_def.name;
-
-            if (calledObjPrefix != "" && obj_def == undefined){
-                codegen_error(block, "undefined object " + calledObjPrefix);
-            }
 
             var method_def = undefined;
             for(let m of js.known_methods) {
@@ -281,7 +302,12 @@
 
     function codegen_error(block, error) {
         console.error(block);
-        throw new Error("Code generation failed: " + error);
+        throw new Error("Code generation failed: line " + block.line + ": " + error);
+    }
+
+    String.prototype.assertContainsToken = function(block, str) {
+        if (!this.includes(str))
+            codegen_error(block, "expected '" + str + "'");
     }
 
     String.prototype.sanitize = function() {

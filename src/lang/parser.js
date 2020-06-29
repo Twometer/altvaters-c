@@ -6,12 +6,19 @@
 
     }
     
-    AltvaterParser.prototype.parse = function(code) {
+    AltvaterParser.prototype.parse = function(codeFiles) {
         var lines = [];
-        for(var line of code.split('\n')) {
-            var l = processLine(line);
-            if (!!l)
-                lines.push(l);
+        for (var code of codeFiles) {
+            var lineCtr = 0;
+            for(var line of code.split('\n')) {
+                lineCtr++;
+                var l = processLine(line);
+                if (!!l)
+                    {
+                        l.lineNum = lineCtr;
+                        lines.push(l);                        
+                    }
+            }
         }
 
         var blocks = [];
@@ -37,7 +44,7 @@
             var curLine = lines[i];
             var nextLine = lines[i + 1];
             if (i == lines.length - 1) {
-               blocks.push({instr: curLine.text, blocks:[], parent:parent});
+               blocks.push({instr: curLine.text, blocks:[], parent:parent, line: curLine.lineNum});
             } else {
                 if (curLine.indent < baseIndent)
                     return i - offset;
@@ -50,9 +57,10 @@
                     new_parent.instr = curLine.text;
                     new_parent.blocks = subblocks;
                     new_parent.parent = parent;
+                    new_parent.line = curLine.lineNum;
                     blocks.push(new_parent);
                 } else {
-                    blocks.push({instr: curLine.text, blocks:[], parent:parent})
+                    blocks.push({instr: curLine.text, blocks:[], parent:parent, line: curLine.lineNum})
                 }
             }
         }

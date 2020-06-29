@@ -111,7 +111,7 @@ gott zum gruße():
         __rt.execute(code);
         }catch (e) {
             writeConsole("Potz Wetter! Welch Eselei geschah nun?")
-            writeConsole(e.stack);
+            writeConsole(e.toString());
             cx.scrollTop = 0;
         }
     }

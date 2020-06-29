@@ -11,7 +11,7 @@
     }
 
     AltvaterRuntime.prototype.execute = function (code) {
-        var ast = AltvaterParser.parse(stdlib + "\n" + code);
+        var ast = AltvaterParser.parse([stdlib, code]);
         var js = AltvaterCodegen.generate(ast);
         console.log(js);
         eval(js);
@@ -20,7 +20,6 @@
     AltvaterRuntime.prototype.loadStdLib = function () {
         let dir = __dirname + "/../stdlib/stdlib.schriftstück";
         stdlib = fs.readFileSync(dir, {encoding:'utf8', flag:'r'}); 
-        console.log(stdlib);
     }
 
     AltvaterRuntime.prototype.file_delete = async (file) => {
@@ -30,7 +29,6 @@
             
         }
     };
-
     
     AltvaterRuntime.prototype.console_println = async (data) => {
         writeConsole(data);
