@@ -96,9 +96,23 @@ gott zum gruße():
         }
     }
 
+    function writeConsole(data) {
+        var textarea = document.getElementById("output_console");
+        textarea.value += data + "\n";
+        textarea.scrollTop = textarea.scrollHeight;
+    }
+
     function runButtonClicked() {
+        var cx = document.getElementById("output_console");
+        cx.value = "";
+        try {
         var code = document.getElementById('input_src').value;
         __rt.execute(code);
+        }catch (e) {
+            writeConsole("Potz Wetter! Welch Eselei geschah nun?")
+            writeConsole(e.stack);
+            cx.scrollTop = 0;
+        }
     }
 
     function backToMain() {

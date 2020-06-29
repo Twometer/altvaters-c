@@ -27,8 +27,9 @@
 
     };
 
+    
     AltvaterRuntime.prototype.console_println = async (data) => {
-        document.getElementById("output_console").value += data + "\n";
+        writeConsole(data);
     };
 
     AltvaterRuntime.prototype.sound = async (hertz) => {

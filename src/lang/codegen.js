@@ -201,8 +201,14 @@
                 return undefined;
             }
 
-            let obj_def = calledObjPrefix == "" ? null : resolveGlobalObject(calledObjPrefix);
-            let obj_name = calledObjPrefix == "" ? "" : obj_def.name;
+            let isGlobal = calledObjPrefix == ""; 
+            let obj_def = isGlobal  ? null : resolveGlobalObject(calledObjPrefix);
+
+            if (!isGlobal && obj_def == null) {
+                codegen_error(block, "cannot resolve object " + calledObjPrefix);
+            }
+
+            let obj_name = isGlobal  ? "" : obj_def.name;
 
             if (calledObjPrefix != "" && obj_def == undefined){
                 codegen_error(block, "undefined object " + calledObjPrefix);
