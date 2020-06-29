@@ -1,0 +1,13 @@
+Gevatter Bibliothekar:
+
+
+Gevatter Bibliothek:
+
+
+Gevatter Bote:
+	mache kund(t):
+		__native__ {
+			Console.WriteLine(t);
+		}
+
+Gevatter Barde:

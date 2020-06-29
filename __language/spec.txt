@@ -1,0 +1,40 @@
+LANGUAGE FEATURES
+int main()		gott zum gruße
+while (~)		tänzelt im kreise solange ~
+bool x = true		möge x die wahrheit sprechen
+bool x = false		möge x die unwahrheit sprechen
+int x			möge x als ganzzahl bekannt sein
+x = ~			setzet den wert von X auf ~
+void x()		x:
+x += 5			addieret 5 zu x
+return			weichet zurück
+goto			hüpfet zu
+5 / 9 - 4 + 12		5 dividieret durch 9, subtrahieret 4 und addieret zwölf
+new Object()		schöpfet ein Objekt vom Typ 
+import ~		es gelüstet mich nach ~
+exception		Potz Wetter!
+throw			entsendet einen Boten
+class			
+
+SUFFIXES
+ - n
+ - r
+
+FILLERS
+ - nun
+ - so
+ - es
+ - den
+ - der
+ - die
+ - dasf
+ - zu
+
+
+STDLIB
+fopen()		erbetet den ehrenwerten bibliothekar um herausgabe des buches
+read()		lauschet dem edlen anwender
+sleep(~)	verfallet in schlummer ~
+beep(hz)	lasset erschallen einen ton
+print(~)	nun gebet zum besten ~
+time()		leset vom zeiteisen

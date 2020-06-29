@@ -1,0 +1,46 @@
+es gelüstet mich nach der Bibliothek
+es gelüstet mich nach dem Zeiteisen
+es gelüstet mich nach dem Boten
+es gelüstet mich nach dem Barden
+
+gott zum gruße():
+  möge x die wahrheit sprechen
+  möge y als zahl bekannt werden
+ 
+  möge existiert die unwahrheit sprechen
+  
+  ehrenwerter Bibliothekar, prüfet ihr die Existenz des Buches test.txt und schreibet in existiert
+  sei gegeben die Eventualität, dass datei_existiert die Unwahrheit spreche:
+    ehrenwerter Bibliothekar, leget an das Schriftstück test.txt
+
+  möge werte Datei als Buch bekannt werden
+
+  ehrenwerter Bibliothekar, findet das Buch test.txt und schreibet in werte Datei	
+  werte Datei, entfleuchet aus der Bibliothek
+  
+  tänzelt im kreise solange x die wahrheit spricht:
+    ::sprungmarke
+    lauschet dem edlen anwender und schreibet in z
+    sei gegeben die Eventualität, dass z entspreche "test_math":
+      addieret 5 zu x, subtrahieret 3 und multiplizieret mit 9
+    ansonsten prüfet, ob z entspreche "test_crash":
+	  es geschah eine eselei
+    ansonsten prüfet, ob z entspreche "test_beep":
+	  werter Barde, lasset erschallen einen Ton in ungekannter höhe
+    ansonsten prüfet, ob z entspreche "test_sleep":
+      verfallet in schlummer für 1 Sekündlein
+	  ehrenwerter Bote, mache kund "Testnachricht!"
+	ansonsten prüfet, ob z entspreche "test_goto":
+	  hüpfet zur ehrenwerten sprungmarke
+	ansonsten prüfet, ob z entspreche "exit_hard":
+	  weichet zurück
+	ansonsten prüfet, ob z entspreche "time":
+	  ehrenwertes Zeiteisen, sag an die Uhr und schreibe in t
+	  edler Bote, mache kund den Wert von t
+	ansonsten prüfet, ob z entspreche "exit":
+	  lasset x die Unwahrheit sprechen
+	so schlage alles bemühen fehl:
+	  edler Bote, mache kund "Dieser Befehl ist nicht in meinem Wortschatze"
+	  
+es geschah eine eselei():
+  Potz Wetter! "Es geschah eine bös Eselei!"
