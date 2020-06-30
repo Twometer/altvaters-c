@@ -11,8 +11,13 @@
 }
 
 .codeflask, .codeflask.codeflask--has-line-numbers:before, .codeflask__lines__line, .codeflask__pre, .codeflask__code, .codeflask__textarea, .token, .codeflask__lines {
-    font-size: 110% !important;
+    font-size: 25px !important;
     font-family: inherit !important;
+}
+
+button {
+    margin: 10px 5px;
+    font-size: 115%;
 }
 
 html, body, a {
@@ -78,7 +83,10 @@ consoleinput {
     height: calc(50px - 10px*2);
     bottom: 0px;
 }
-
+.console-input-container,#input_console{
+    margin: 1px;
+    font-size: 105%;
+}
 #input_console {
     display: inline;
     width: calc(100% - 40px);

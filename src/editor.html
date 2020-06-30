@@ -19,13 +19,13 @@
     </toolbar>
 
     <filemanager>
-        Schriftenkammer
+        <div style="margin: 5px">
+            <h2>Schriftenkammer</h2>
+        </div>
     </filemanager>
 
     <contentview>
-        <div class="fullsize" id="input_src">
-
-        </div>
+        <div class="fullsize" id="input_src"></div>
     </contentview>
 
     <console>
@@ -33,7 +33,9 @@
     </console>
     
     <consoleinput>
-       <span>$</span> <input id="input_console" type="text" placeholder="Die Konsole erwartet Eure Befehle">
+        <div class="console-input-container">
+            <span>$</span> <input id="input_console" type="text" placeholder="Die Konsole erwartet Eure Befehle">
+        </div>
     </consoleinput>
 
 </body>
@@ -47,7 +49,6 @@
     const flask = new CodeFlask(editorElem, { language: 'altvater', lineNumbers: true, defaultTheme: false});
     registerLanguage();
     flask.addLanguage('altvater', Prism.languages['altvater']);
-    
     
     function registerLanguage() {
         Prism.languages.altvater = {
@@ -88,7 +89,7 @@
         var cx = document.getElementById("output_console");
         cx.value = "";
         try {
-        var code = document.getElementById('input_src').value;
+        var code = flask.getCode();
         __rt.execute(code);
         }catch (e) {
             writeConsole("Potz Wetter! Welch Eselei geschah nun?")

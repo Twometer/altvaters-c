@@ -9,6 +9,7 @@ es geschah eine eselei():
 gott zum gruße():
     möge x die wahrheit sprechen
     möge y als zahl bekannt werden
+    lasset y 6 sein
     
     möge existiert die unwahrheit sprechen
     
@@ -27,6 +28,7 @@ gott zum gruße():
         lauschet dem edlen anwender und schreibet in z
         sei gegeben die Eventualität, dass z entspreche "test_math":
             rechnet mit y, addieret 5, subtrahieret 3 und multiplizieret mit 9
+            edler Bote, mache Kund den Wert von y
         ansonsten prüfet, ob z entspreche "test_crash":
             es geschah eine eselei
         ansonsten prüfet, ob z entspreche "test_beep":
@@ -40,6 +42,7 @@ gott zum gruße():
             altehrwürdiges Zeiteisen, sagt an die Uhr und schreibet in t
             edler Bote, mache kund den Wert von t
         ansonsten prüfet, ob z entspreche "exit":
+            edler Bote, mache Kund "wir verlassen diese Gefilde"
             lasset x die Unwahrheit sprechen
         so schlage alles bemühen fehl:
             edler Bote, mache kund "Dieser Befehl ist nicht in meinem Wortschatze"

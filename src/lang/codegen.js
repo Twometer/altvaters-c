@@ -110,6 +110,12 @@
 
                 js.appendln(name + " = " + val + '; // Type: bool');
                 // bool
+            }  else if (instruction.endsWith('sein')) {
+                instruction.assertContainsToken(block, ' ');
+                let name = instruction.after(prefix).before(" ");
+                let value = instruction.after(name).before('sein');
+                js.appendln(name + " = " + value + ";")
+                // any
             } else {
                 codegen_error(block, "invalid definition")
             }
@@ -162,9 +168,9 @@
                 else if (op.includes('dividieret'))
                     js.appendln(varname + " /= " + (op.after("dividieret").replaceAll("durch", "")) + ";");
                 else if (op.includes('addieret'))
-                    js.appendln(varname + " /= " + (op.after("addieret")) + ";");
+                    js.appendln(varname + " += " + (op.after("addieret")) + ";");
                 else if (op.includes('subtrahieret'))
-                    js.appendln(varname + " /= " + (op.after("subtrahieret")) + ";");
+                    js.appendln(varname + " -= " + (op.after("subtrahieret")) + ";");
             }
 
             let op = instruction.after(opsep);
