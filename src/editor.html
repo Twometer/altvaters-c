@@ -23,53 +23,9 @@
     </filemanager>
 
     <contentview>
-        <textarea class="fullsize" id="input_src" placeholder="Schreibet euren erquickenden Code" spellcheck="false">
-es gelüstet mich nach Bibliothekar als ehrenwerter Bibliothekar
-es gelüstet mich nach Zeiteisen als altehrwürdiges Zeiteisen
-es gelüstet mich nach Bote als edler Bote
-es gelüstet mich nach Barde als werter Barde
-        
-es geschah eine eselei():
-    Potz Wetter! "Es geschah eine bös Eselei!"  
+        <div class="fullsize" id="input_src">
 
-gott zum gruße():
-    möge x die wahrheit sprechen
-    möge y als zahl bekannt werden
-    
-    möge existiert die unwahrheit sprechen
-    
-    ehrenwerter Bibliothekar, prüfet ihr die Existenz des Buches "test.txt" und schreibet in existiert
-    sei gegeben die Eventualität, dass existiert die Unwahrheit spreche:
-        ehrenwerter Bibliothekar, leget an das Schriftstück "test.txt"
-        ehrenwerter Bibliothekar, leget an das Schriftstück "test2.txt"
-
-    möge werte Datei als Buch bekannt werden
-
-    ehrenwerter Bibliothekar, findet das Buch "test.txt" und schreibet in werte Datei	
-    werte Datei, entfleuchet aus der Bibliothek
-    
-    tänzelt im kreise solange x die wahrheit spreche:
-        edler Bote, mache Kund "Erwarte Befehl"
-        lauschet dem edlen anwender und schreibet in z
-        sei gegeben die Eventualität, dass z entspreche "test_math":
-            rechnet mit y, addieret 5, subtrahieret 3 und multiplizieret mit 9
-        ansonsten prüfet, ob z entspreche "test_crash":
-            es geschah eine eselei
-        ansonsten prüfet, ob z entspreche "test_beep":
-            werter Barde, lasset erschallen einen Ton in ungekannter höhe
-        ansonsten prüfet, ob z entspreche "test_sleep":
-            verfallet in schlummer für 1 Sekündlein
-            edler Bote, mache kund "Testnachricht!"
-        ansonsten prüfet, ob z entspreche "exit_hard":
-            weichet zurück
-        ansonsten prüfet, ob z entspreche "time":
-            altehrwürdiges Zeiteisen, sagt an die Uhr und schreibet in t
-            edler Bote, mache kund den Wert von t
-        ansonsten prüfet, ob z entspreche "exit":
-            lasset x die Unwahrheit sprechen
-        so schlage alles bemühen fehl:
-            edler Bote, mache kund "Dieser Befehl ist nicht in meinem Wortschatze"
-        </textarea>
+        </div>
     </contentview>
 
     <console>
@@ -84,8 +40,33 @@ gott zum gruße():
 <script src="lang/codegen.js"></script>
 <script src="lang/parser.js"></script>
 <script src="lang/runtime.js"></script>
+<script src="https://unpkg.com/codeflask/build/codeflask.min.js"></script>
 <script>
+    // Syntax highlighting
+    const editorElem = document.getElementById("input_src");
+    const flask = new CodeFlask(editorElem, { language: 'altvater', lineNumbers: true, defaultTheme: false});
+    registerLanguage();
+    flask.addLanguage('altvater', Prism.languages['altvater']);
+    
+    
+    function registerLanguage() {
+        Prism.languages.altvater = {
+            'comment': /#.*\n/,
+            'native': /\$\$.*\n/,
+            'keyword2': /\b(?:unwahrheit|wahrheit|zahl)\b/i,
+            'string': {
+                pattern: /(["])(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
+                greedy: true
+            },
+            'function': /.*\(.*\):\n/,
+            'keyword': /(?:tänzelt im kreise solange|möge|sei gegeben die eventualität|ansonsten prüfet, ob|weichet zurück|lasset|\w* schlage alles bemühen fehl|und schreibet in|rechnet mit|addieret|subtrahieret|dividieret|multiplizieret|den wert von|es gelüstet mich nach|als|Potz Wetter!)/i,
+            'number': /\b0x[\da-f]+\b|(?:\b\d+\.?\d*|\B\.\d+)(?:e[+-]?\d+)?/i,
+            'classdef': /Gevatter .*\n/i,
+            'funccall': /.*\,/
+        }
+    }
 
+    // Handlers
     __rt.loadStdLib();
     console.log("STDLIB loaded");
 

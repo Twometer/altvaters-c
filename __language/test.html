@@ -1,0 +1,66 @@
+<html>
+	<head>
+		<title>test</title>
+	</head>
+	<style>
+		.codeflask__textarea, .codeflask__code, .codeflask__lines__line {
+			font-family: 'Arial' !important;
+		}
+		.token.native {
+			color: green;
+		}
+		.token.classdef {
+			color:teal;
+		}
+		.token.comment {
+			color:gray;
+		}
+		.token.string {
+			color: red;
+		}
+		.token.keyword {
+			color:darkblue;
+			font-weight: bold;
+		}
+		.token.boolean, .token.keyword2 {
+			color: orange;
+			font-weight: bold;
+		}
+		.token.function {
+			color:purple;
+		}
+		.token.funccall {
+			color: gray;
+		}
+	</style>
+	<body>
+		<div id="editor">
+			
+		</div>
+	</body>
+	<script src="https://unpkg.com/codeflask/build/codeflask.min.js"></script>
+	<script>
+		const editorElem = document.getElementById('editor');
+		const flask = new CodeFlask(editorElem, { language: 'altvater', lineNumbers: true, defaultTheme: false});
+		registerLanguage();
+		flask.addLanguage('altvater', Prism.languages['altvater']);
+		
+		
+		function registerLanguage() {
+			Prism.languages.altvater = {
+				'comment': /#.*\n/,
+				'native': /\$\$.*\n/,
+				'keyword2': /\b(?:unwahrheit|wahrheit|zahl)\b/i,
+				'string': {
+					pattern: /(["])(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
+					greedy: true
+				},
+				'function': /.*\(.*\):\n/,
+				'keyword': /(?:tänzelt im kreise solange|möge|sei gegeben die eventualität|ansonsten prüfet, ob|weichet zurück|lasset|\w* schlage alles bemühen fehl|und schreibet in|rechnet mit|addieret|subtrahieret|dividieret|multiplizieret|den wert von|es gelüstet mich nach|als|Potz Wetter!)/i,
+				'number': /\b0x[\da-f]+\b|(?:\b\d+\.?\d*|\B\.\d+)(?:e[+-]?\d+)?/i,
+				'classdef': /Gevatter .*\n/i,
+				'funccall': /.*\,/
+			}
+		}
+	</script>
+</html>
