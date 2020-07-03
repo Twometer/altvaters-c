@@ -1,11 +1,6 @@
 # altvaters-c
-Nun lasst uns frohgemut und edel programmieren
+"Nun lasst uns frohgemut und edel programmieren"
 
-Die garantiert schaurigste Programmiersprache der Welt
+Mit Frakturschrift in der IDE für ein schaurig-schönes Mittelalter-Programmiererlebnis
 
-
-
-
-
-
-#jk
+[Codebeispiel](https://github.com/Twometer/altvaters-c/blob/master/demo/demo.schriftst%C3%BCck)
