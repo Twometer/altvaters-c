@@ -1,4 +1,6 @@
 # altvaters-c
+> This was an inside joke don't take it too seriously :p
+
 "Nun lasst uns frohgemut und edel programmieren"
 
 Mit Frakturschrift in der IDE für ein schaurig-schönes Mittelalter-Programmiererlebnis
